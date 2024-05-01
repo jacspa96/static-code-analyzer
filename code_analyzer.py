@@ -2,6 +2,7 @@ import sys
 from code_analyzer_engine import CodeAnalyzerEngine
 
 
+
 def parse_args() -> str:
     args = sys.argv
     if len(args) != 2:
