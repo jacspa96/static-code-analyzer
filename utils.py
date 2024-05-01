@@ -7,10 +7,17 @@ LINE_INFO_POSITION = 1
 LINE_NUMBER_POSITION = 1
 
 
-def extract_line_number(message: str):
+def extract_line_number(message: str) -> int:
     line_info = message.split(MESSAGE_PARTS_SEPARATOR)[LINE_INFO_POSITION]
     line_number = int(line_info.split(" ")[LINE_NUMBER_POSITION])
     return line_number
+
+
+def extract_name_from_declaration(declaration: str) -> str:
+    name = declaration.split()[1]  # get rid of "class" or "def" keyword at position 0
+    name = name.replace(":", "").rstrip()
+    name = name.split("(")[0]  # get rid of parent class or function parameters
+    return name
 
 
 def read_contents_of_all_files(path: str) -> dict:
