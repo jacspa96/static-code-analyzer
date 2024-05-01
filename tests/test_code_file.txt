@@ -10,7 +10,7 @@ print(very_big_number)
 
 def some_fun():
      print('NO TODO HERE;;')
-    pass; # Todo something
+     pass; # Todo something
 
 class  Person:
     pass
@@ -28,3 +28,10 @@ class user:
     @staticmethod
     def Print2():
         print('q')
+
+def fun1(S=5, test=[]):
+    VARIABLE = 10
+    string = 'string'
+    print(VARIABLE)
+
+badVar = 8

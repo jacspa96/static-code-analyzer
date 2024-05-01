@@ -1,5 +1,5 @@
 import unittest
-from utils import extract_line_number, _crawl_over_directory, _read_lines_from_file
+from file_utils import extract_line_number, _crawl_over_directory_and_read_lines, _read_lines_from_file
 
 
 class TestUtils(unittest.TestCase):
@@ -22,7 +22,7 @@ class TestUtils(unittest.TestCase):
         start_path = "./crawling_test"
 
         # when
-        actual_files = list(_crawl_over_directory(start_path).keys())
+        actual_files = list(_crawl_over_directory_and_read_lines(start_path).keys())
 
         # then
         self.assertListEqual(expected_files, actual_files)

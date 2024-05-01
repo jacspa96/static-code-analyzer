@@ -1,5 +1,5 @@
 import unittest
-from code_analyzer_engine import CodeAnalyzerEngine, _handle_naming_of_class, _handle_naming_of_function
+from code_analyzer_engine import CodeAnalyzerEngine
 
 
 TEST_CODE_FILE_NAME = "test_code_file.txt"
@@ -24,7 +24,8 @@ class TestCodeAnalyzer(unittest.TestCase):
 
     def test_check_indentation(self):
         # given
-        expected_errors = [f"{TEST_CODE_FILE_NAME}: Line 12: S002 Indentation is not a multiple of four"]
+        expected_errors = [f"{TEST_CODE_FILE_NAME}: Line 12: S002 Indentation is not a multiple of four",
+                           f"{TEST_CODE_FILE_NAME}: Line 13: S002 Indentation is not a multiple of four",]
 
         # when
         actual_errors = self.code_analyzer_to_test.check_indentation(TEST_CODE_FILE_NAME)
@@ -57,11 +58,25 @@ class TestCodeAnalyzer(unittest.TestCase):
         # then
         self.assertListEqual(expected_errors, actual_errors)
 
+    def test_check_spaces_after_declaration(self):
+        # given
+        expected_errors = [f"{TEST_CODE_FILE_NAME}: Line 15: S007 Too many spaces after 'class'"]
+
+        # when
+        actual_errors = self.code_analyzer_to_test.check_spaces_after_declaration(TEST_CODE_FILE_NAME)
+
+        # then
+        self.assertListEqual(expected_errors, actual_errors)
+
+
     def test_check_naming(self):
         # given
-        expected_errors = [f"{TEST_CODE_FILE_NAME}: Line 15: S007 Too many spaces after 'class'",
-                           f"{TEST_CODE_FILE_NAME}: Line 18: S008 Class name 'user' should use CamelCase",
-                           f"{TEST_CODE_FILE_NAME}: Line 29: S009 Function name 'Print2' should use snake_case"]
+        expected_errors = [f"{TEST_CODE_FILE_NAME}: Line 18: S008 Class name 'user' should use CamelCase",
+                           f"{TEST_CODE_FILE_NAME}: Line 32: S010 Argument name 'S' should be snake_case",
+                           f"{TEST_CODE_FILE_NAME}: Line 32: S012 Default argument value is mutable",
+                           f"{TEST_CODE_FILE_NAME}: Line 37: S011 Variable 'badVar' should be snake_case",
+                           f"{TEST_CODE_FILE_NAME}: Line 29: S009 Function name 'Print2' should use snake_case",
+                           f"{TEST_CODE_FILE_NAME}: Line 33: S011 Variable 'VARIABLE' should be snake_case"]
 
         # when
         actual_errors = self.code_analyzer_to_test.check_naming(TEST_CODE_FILE_NAME)
@@ -78,57 +93,20 @@ class TestCodeAnalyzer(unittest.TestCase):
                            f"{TEST_CODE_FILE_NAME}: Line 6: S001 Too long",
                            f"{TEST_CODE_FILE_NAME}: Line 11: S006 More than two blank lines used before this line",
                            f"{TEST_CODE_FILE_NAME}: Line 12: S002 Indentation is not a multiple of four",
+                           f"{TEST_CODE_FILE_NAME}: Line 13: S002 Indentation is not a multiple of four",
                            f"{TEST_CODE_FILE_NAME}: Line 13: S003 Unnecessary semicolon",
                            f"{TEST_CODE_FILE_NAME}: Line 13: S004 At least two spaces required before inline comments",
                            f"{TEST_CODE_FILE_NAME}: Line 13: S005 TODO found",
                            f"{TEST_CODE_FILE_NAME}: Line 15: S007 Too many spaces after 'class'",
                            f"{TEST_CODE_FILE_NAME}: Line 18: S008 Class name 'user' should use CamelCase",
-                           f"{TEST_CODE_FILE_NAME}: Line 29: S009 Function name 'Print2' should use snake_case"]
+                           f"{TEST_CODE_FILE_NAME}: Line 29: S009 Function name 'Print2' should use snake_case",
+                           f"{TEST_CODE_FILE_NAME}: Line 32: S010 Argument name 'S' should be snake_case",
+                           f"{TEST_CODE_FILE_NAME}: Line 32: S012 Default argument value is mutable",
+                           f"{TEST_CODE_FILE_NAME}: Line 33: S011 Variable 'VARIABLE' should be snake_case",
+                           f"{TEST_CODE_FILE_NAME}: Line 37: S011 Variable 'badVar' should be snake_case"]
 
         # when
         actual_errors = self.code_analyzer_to_test.analyze_code()
-
-        # then
-        self.assertListEqual(expected_errors, actual_errors)
-
-    def test_handle_naming_of_class(self):
-        # given
-        lines = ["class  Person:",
-                 "class user:",
-                 "class _:",
-                 "class  user",
-                 "class Person"]
-        expected_errors = [["test.txt: Line 1: S007 Too many spaces after 'class'"],
-                           ["test.txt: Line 1: S008 Class name 'user' should use CamelCase"],
-                           ["test.txt: Line 1: S008 Class name '_' should use CamelCase"],
-                           ["test.txt: Line 1: S007 Too many spaces after 'class'",
-                            "test.txt: Line 1: S008 Class name 'user' should use CamelCase"],
-                           []
-                           ]
-
-        # when
-        actual_errors = [_handle_naming_of_class("test.txt", 0, line) for line in lines]
-
-        # then
-        self.assertListEqual(expected_errors, actual_errors)
-
-    def test_handle_naming_of_function(self):
-        # given
-        lines = ["def  function:",
-                 "def funFunction:",
-                 "def _:",
-                 "def  Function",
-                 "def function"]
-        expected_errors = [["test.txt: Line 1: S007 Too many spaces after 'def'"],
-                           ["test.txt: Line 1: S009 Function name 'funFunction' should use snake_case"],
-                           ["test.txt: Line 1: S009 Function name '_' should use snake_case"],
-                           ["test.txt: Line 1: S007 Too many spaces after 'def'",
-                            "test.txt: Line 1: S009 Function name 'Function' should use snake_case"],
-                           []
-                           ]
-
-        # when
-        actual_errors = [_handle_naming_of_function("test.txt", 0, line) for line in lines]
 
         # then
         self.assertListEqual(expected_errors, actual_errors)
