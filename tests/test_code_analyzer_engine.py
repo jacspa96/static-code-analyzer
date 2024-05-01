@@ -1,5 +1,5 @@
 import unittest
-from code_analyzer import CodeAnalyzer
+from code_analyzer_engine import CodeAnalyzerEngine
 
 
 TEST_CODE_FILE_NAME = "test_code_file.txt"
@@ -9,7 +9,7 @@ class TestCodeAnalyzer(unittest.TestCase):
 
     @classmethod
     def setUp(cls):
-        cls.code_analyzer_to_test = CodeAnalyzer(TEST_CODE_FILE_NAME)
+        cls.code_analyzer_to_test = CodeAnalyzerEngine(TEST_CODE_FILE_NAME)
 
     def test_check_line_length(self):
         # given
