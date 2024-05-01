@@ -11,3 +11,20 @@ print(very_big_number)
 def some_fun():
      print('NO TODO HERE;;')
     pass; # Todo something
+
+class  Person:
+    pass
+
+class user:
+
+    def __init__(self, login: str, password: str):
+        self.login = login
+        self.password = password
+
+    @staticmethod
+    def _print1():
+        print('q')
+
+    @staticmethod
+    def Print2():
+        print('q')

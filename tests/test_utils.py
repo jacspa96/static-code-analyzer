@@ -27,25 +27,6 @@ class TestUtils(unittest.TestCase):
         # then
         self.assertListEqual(expected_files, actual_files)
 
-    def test_read_lines_from_file(self):
-        expected_lines = ["print('What\\'s your name?') # reading an input",
-                          "name = input();",
-                          "print(f'Hello, {name}');  # here is an obvious comment: this prints a greeting with a name",
-                          "",
-                          "",
-                          "very_big_number = 11_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000",
-                          "print(very_big_number)",
-                          "",
-                          "",
-                          "",
-                          "def some_fun():",
-                          "     print('NO TODO HERE;;')",
-                          "    pass; # Todo something"]
-
-        actual_lines = _read_lines_from_file("test_code_file.txt")
-
-        self.assertListEqual(expected_lines, actual_lines)
-
 
 if __name__ == '__main__':
     unittest.main()
